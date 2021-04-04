@@ -20,6 +20,9 @@ async function getWeatherData (city){
 
 }
 
+//Function that renders city data to the page
+//To-do -- Pass user input into this somehow
+//To-do -- Only run when search button is hit  
 var renderCityWeather=function(response, searchedCity){
     cityName = response.name
     cityRenderEl.textContent = cityName;

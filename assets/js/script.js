@@ -6,6 +6,8 @@ var weatherContainerEl = document.querySelector('#weatherContainer')
 var weatherListEl = document.querySelector('#weatherList')
 
 //FUNCTIONS--------------------
+
+//Function getCityWeather - fetches API data and passes the 'awaited' response into renderCityWeather function
 async function getWeatherData (city){
     try {
         var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=db1013c661811da231f07902c100f4d0`
@@ -20,7 +22,7 @@ async function getWeatherData (city){
 
 }
 
-//Function that renders city data to the page
+//Function renderCityWeather - renders city data to the page. Creates 3 list items for Temp, Wind and Humidity
 //To-do -- Pass user input into this somehow
 //To-do -- Only run when search button is hit  
 var renderCityWeather=function(response, searchedCity){
@@ -29,12 +31,21 @@ var renderCityWeather=function(response, searchedCity){
 
     console.log(response); 
 
-    var weatherBullet = document.createElement('li')
-    weatherBullet.classList.add('list-group-item')
-    weatherBullet.textContent="Temp: ";
+    var tempBullet = document.createElement('li')
+    tempBullet.classList.add('list-group-item')
+    tempBullet.textContent="Temp: ";
 
+    var windBullet = document.createElement('li')
+    windBullet.classList.add('list-group-item')
+    windBullet.textContent="Wind: ";
 
-    weatherListEl.appendChild(weatherBullet)
+    var humidBullet = document.createElement('li')
+    humidBullet.classList.add('list-group-item')
+    humidBullet.textContent="Humidity: ";
+
+    weatherListEl.appendChild(tempBullet)
+    weatherListEl.appendChild(windBullet)
+    weatherListEl.appendChild(humidBullet)
 
 
 }

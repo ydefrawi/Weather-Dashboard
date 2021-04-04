@@ -23,13 +23,19 @@ async function getWeatherData (city){
 }
 
 //Function renderCityWeather - renders city data to the page. Creates 3 list items for Temp, Wind and Humidity
-//To-do -- Pass user input into this somehow
-//To-do -- Only run when search button is hit  
 var renderCityWeather=function(response, searchedCity){
     cityName = response.name
     cityRenderEl.textContent = cityName;
 
     console.log(response); 
+
+    //grabs appropriate icon ID from API and concatenates it into the png URL
+    var iconID=response.weather[0].icon;
+    var iconURL = `http://openweathermap.org/img/wn/${iconID}@2x.png`
+    var iconRender = document.createElement('img')
+    iconRender.src=iconURL
+    // ---------------------
+
     wind = response.wind.speed; 
     temp = response.main.temp;
     humidity = response.main.humidity
@@ -49,7 +55,7 @@ var renderCityWeather=function(response, searchedCity){
     weatherListEl.appendChild(tempBullet)
     weatherListEl.appendChild(windBullet)
     weatherListEl.appendChild(humidBullet)
-
+    cityRenderEl.appendChild(iconRender)
 
 }
 

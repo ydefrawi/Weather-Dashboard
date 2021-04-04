@@ -61,13 +61,14 @@ function citySearchHandler (event) {
     if (searchedCity === ""){
         alert("Please Enter a City")
     } else {
-            console.log(searchedCity); 
-            return searchedCity;
+            weatherListEl.textContent=''
+            cityInputEl.value=''
+            getWeatherData(searchedCity)
     }
 }
 
 
 // EVENT LISTENERS ---------------------
-getWeatherData('Houston');
+// getWeatherData('Houston');
 
 searchButtonEl.addEventListener('click', citySearchHandler)

@@ -36,10 +36,12 @@ var renderCityWeather=function(response, searchedCity){
     iconRender.src=iconURL
     // ---------------------
 
+    // grabs appropriate weather data from response
     wind = response.wind.speed; 
     temp = response.main.temp;
     humidity = response.main.humidity
 
+    //generates and populates bullets for Temp, Wind, and Humidity
     var tempBullet = document.createElement('li')
     tempBullet.classList.add('list-group-item')
     tempBullet.textContent="Temp: "+ temp + " degrees Kelvin";
@@ -52,6 +54,7 @@ var renderCityWeather=function(response, searchedCity){
     humidBullet.classList.add('list-group-item')
     humidBullet.textContent="Humidity: " + humidity;
 
+    //Appends bullets and icon to weatherListEl and cityRenderEl, both global.
     weatherListEl.appendChild(tempBullet)
     weatherListEl.appendChild(windBullet)
     weatherListEl.appendChild(humidBullet)

@@ -20,12 +20,12 @@ async function getWeatherData (city){
 
 }
 
-var renderCityWeather=function(response){
+var renderCityWeather=function(response, searchedCity){
     cityName = response.name
     cityRenderEl.textContent = cityName;
 
     console.log(response); 
-    
+
     var weatherBullet = document.createElement('li')
     weatherBullet.classList.add('list-group-item')
     weatherBullet.textContent="Temp: ";
@@ -36,7 +36,7 @@ var renderCityWeather=function(response){
 
 }
 
-//Function that trims and logs inputs to the search box (will need to add to localStorage), to be called when the search button is clicked
+//Function that trims and logs inputs to the search box (will need to add to localStorage to save previous searches), to be called when the search button is clicked
 
 function citySearchHandler (event) {
     event.preventDefault();
@@ -45,11 +45,12 @@ function citySearchHandler (event) {
         alert("Please Enter a City")
     } else {
             console.log(searchedCity); 
+            return searchedCity;
     }
 }
 
 
 // EVENT LISTENERS ---------------------
-getWeatherData('London');
+getWeatherData('Houston');
 
 searchButtonEl.addEventListener('click', citySearchHandler)

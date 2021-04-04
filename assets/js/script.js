@@ -30,18 +30,21 @@ var renderCityWeather=function(response, searchedCity){
     cityRenderEl.textContent = cityName;
 
     console.log(response); 
+    wind = response.wind.speed; 
+    temp = response.main.temp;
+    humidity = response.main.humidity
 
     var tempBullet = document.createElement('li')
     tempBullet.classList.add('list-group-item')
-    tempBullet.textContent="Temp: ";
+    tempBullet.textContent="Temp: "+ temp + " degrees Kelvin";
 
     var windBullet = document.createElement('li')
     windBullet.classList.add('list-group-item')
-    windBullet.textContent="Wind: ";
+    windBullet.textContent="Wind: " + wind + " meters/second";
 
     var humidBullet = document.createElement('li')
     humidBullet.classList.add('list-group-item')
-    humidBullet.textContent="Humidity: ";
+    humidBullet.textContent="Humidity: " + humidity;
 
     weatherListEl.appendChild(tempBullet)
     weatherListEl.appendChild(windBullet)

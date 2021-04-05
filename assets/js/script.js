@@ -39,12 +39,13 @@ var renderCityWeather=function(response, searchedCity){
     // grabs appropriate weather data from response
     wind = response.wind.speed; 
     temp = response.main.temp;
+    tempK = Math.round(temp-273.15)
     humidity = response.main.humidity
 
     //generates and populates bullets for Temp, Wind, and Humidity
     var tempBullet = document.createElement('li')
     tempBullet.classList.add('list-group-item')
-    tempBullet.textContent="Temp: "+ temp + " degrees Kelvin";
+    tempBullet.textContent="Temp: "+ tempK + "° Celsius";
 
     var windBullet = document.createElement('li')
     windBullet.classList.add('list-group-item')

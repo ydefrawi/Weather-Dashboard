@@ -4,6 +4,9 @@ var cityRenderEl = document.querySelector("#cityRender")
 var searchButtonEl = document.querySelector("#searchButton")
 var weatherContainerEl = document.querySelector('#weatherContainer')
 var weatherListEl = document.querySelector('#weatherList')
+var dateEl = document.querySelector('#currentDate')
+currentTime=moment().format("dddd, MMMM Do YYYY, h:mm a")
+console.log(currentTime);
 
 //FUNCTIONS--------------------
 
@@ -26,7 +29,7 @@ async function getWeatherData (city){
 var renderCityWeather=function(response, searchedCity){
     cityName = response.name
     cityRenderEl.textContent = cityName;
-
+    dateEl.textContent = currentTime;
     console.log(response); 
 
     //grabs appropriate icon ID from API and concatenates it into the png URL

@@ -8,6 +8,11 @@
     text-align: right;
 }
 
+#currentDate {
+    font-weight: bolder;
+    text-align: center;
+}
+
 .title-background {
     background-color:  rgba(56, 255, 245, 0.788);
     

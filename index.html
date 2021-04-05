@@ -1,50 +1,58 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <link rel="stylesheet" href="./assets/css/style.css">
-        
-    </head>
-    <body>
-        <div class="jumbotron" id="background-image">
-            <h1 class="display-4 shadow p-3 mb-5 rounded title-background">Weather Dashboard</h1>
-            <p class="lead shadow mb-5 rounded title-background">Our weather dashboard will let you see the weather outlook for any city you search for!</p>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h2> Search For a City</h2>
-                    <input id=cityInput class="form-control" type="text" placeholder="Enter City Name">
-                    <button id="searchButton" type="button" class="btn btn-info float-right">Search</button>
-    
-                </div>
-                <div class="col-sm-8">
-                    <h2 id="cityRender" class="text-center"></h2>
-                    <div id = "weatherContainer" class = "container">
-                         
-                        <ul id="weatherList" class="list-group list-group-flush">
 
-                          </ul>
-                    </div>
-                </div>
-                
-    
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body>
+    <div class="jumbotron" id="background-image">
+        <h1 class="display-4 shadow p-3 mb-5 rounded title-background">Weather Dashboard</h1>
+        <p class="lead shadow mb-5 rounded title-background">Our weather dashboard will let you see the weather outlook
+            for any city you search for!</p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <br>
+                <h2> Search For a City</h2>
+                <input id=cityInput class="form-control" type="text" placeholder="Enter City Name">
+                <button id="searchButton" type="button" class="btn btn-info float-right">Search</button>
+
             </div>
-    
+            <div class="col-sm-8">
+                <h2 id="cityRender" class="text-center"></h2>
+                <div id = "currentDate"></div> 
+                <br>
+                <div id="weatherContainer" class="container">
+
+                    <ul id="weatherList" class="list-group list-group-flush">
+
+                    </ul>
+                </div>
+            </div>
+
+
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-            crossorigin="anonymous"></script>
-        <script src="./assets/js/script.js" async defer></script>
-    </body>
-    
-    </html>
+
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    <script src="./assets/js/script.js" async defer></script>
+</body>
+
+</html>

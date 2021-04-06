@@ -1,3 +1,9 @@
+footer{
+    text-align: center;
+    font-size: small;
+    margin-top: 30px;
+}
+
 #background-image{
     background-image: url(https://images.unsplash.com/photo-1617541224485-ca362e048814?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80);
     background-repeat: no-repeat;
@@ -14,11 +20,55 @@
     text-align: center;
 }
 
+#card-text{
+    font-size: small;
+}
+
 .title-background {
-    background-color:  rgba(56, 255, 245, 0.788);
+    background-color:  rgba(56, 255, 245, 0.589);
     
 }
 
 .list-background{
     background-color:blue;
+}
+
+.card{ 
+    min-width: 140px; 
+    border-style: none;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.container {
+    max-width:90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+  }
+
+.forecast-item {
+    padding:0%;
+    border-style: none;
+}
+
+.list-group-item{
+    background-color: transparent;
+}
+
+.card-body {
+    background: rgb(55,65,107);
+    background: linear-gradient(68deg, rgba(55,65,107,1) 0%, rgba(65,65,154,1) 100%);
+    border-radius: 15px;
+    color:white;
+}
+
+.forecast-date {
+    font-weight: bolder;
+    text-decoration: underline;
 }

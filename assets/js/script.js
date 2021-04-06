@@ -4,9 +4,12 @@ var cityRenderEl = document.querySelector("#cityRender")
 var searchButtonEl = document.querySelector("#searchButton")
 var weatherContainerEl = document.querySelector('#weatherContainer')
 var weatherListEl = document.querySelector('#weatherList')
+var forecastContainerEl=document.querySelector('#forecastContainer')
 var dateEl = document.querySelector('#currentDate')
+var forecastRowEl = document.querySelector('#cards-row')
+console.log(forecastRowEl)
+
 currentTime=moment().format("dddd, MMMM Do YYYY, h:mm a")
-console.log(currentTime);
 
 //FUNCTIONS--------------------
 
@@ -17,20 +20,94 @@ async function getWeatherData (city){
         // console.log(apiURL)
         var response = await fetch(apiURL);
         var awaitedResponse = await response.json();
+        var lat = awaitedResponse.coord.lat;
+        var lon = awaitedResponse.coord.lon;
         // console.log(awaitedResponse)
+        getForecast(lat, lon)
         renderCityWeather(awaitedResponse)
     } catch (error) {
         console.log(error);
     }
-
 }
 
-//Function renderCityWeather - renders city data to the page. Creates 3 list items for Temp, Wind and Humidity
+async function getForecast (lat, lon){
+    try {
+        var apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=db1013c661811da231f07902c100f4d0`
+        var response = await fetch(apiURL);
+        var awaitedResponse = await response.json();
+        renderForecast(awaitedResponse)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function renderForecast(response){
+    todaysUV = response.daily[0].uvi;
+    var uvBullet = document.createElement('li')
+    uvBullet.classList.add('list-group-item')
+    uvBullet.textContent="UV Index: "+ todaysUV;
+    weatherListEl.appendChild(uvBullet)
+    
+    var forecastHeader=document.createElement('span')
+    forecastHeader.style.fontWeight='stronger'
+    forecastHeader=textContent="5-Day Forecast"
+    forecastContainerEl.prepend(forecastHeader);
+
+    for (i=1; i<6; i++){
+        var temp = response.daily[i].temp.day
+        var tempK = Math.round(temp-273.15)
+        var wind = response.daily[i].wind_speed
+        var humidity = response.daily[i].humidity
+        var dateUnix = response.daily[i].dt
+        date = moment.unix(dateUnix).format("MMM Do, YYYY")
+        console.log(date)
+        
+        var column = document.createElement('div')
+        var card = document.createElement('div')
+        var cardBody = document.createElement('div')
+        var ul = document.createElement('ul');
+        var forecastDate = document.createElement('li')
+        var tempBullet=document.createElement('li');
+        var windBullet=document.createElement('li');
+        var humidBullet = document.createElement('li');
+
+        forecastDate.textContent=date;
+        tempBullet.textContent="Temp: "+tempK+"° C";
+        windBullet.textContent="Wind: "+wind+" m/s";
+        humidBullet.textContent="Humidity: "+humidity+"%";
+
+        
+        column.classList='col'
+        card.classList='card shadow'
+        cardBody.classList='card-body';
+        ul.classList='list-group';
+        forecastDate.classList='list-group-item forecast-item forecast-date';
+        tempBullet.classList='list-group-item forecast-item';
+        windBullet.classList='list-group-item forecast-item';
+        humidBullet.classList='list-group-item forecast-item';
+
+        forecastRowEl.appendChild(column)
+        column.appendChild(card)
+        card.appendChild(cardBody)
+        cardBody.appendChild(ul)
+
+        ul.appendChild(forecastDate)
+        ul.appendChild(tempBullet)
+        ul.appendChild(windBullet)
+        ul.appendChild(humidBullet)
+
+        
+    }
+}
+
+
+
+//Function renderCityWeather - renders CURRENT weather data to the page. Creates 3 list items for Temp, Wind and Humidity
 var renderCityWeather=function(response, searchedCity){
     cityName = response.name
     cityRenderEl.textContent = cityName;
     dateEl.textContent = currentTime;
-    console.log(response); 
+    // console.log(response); 
 
     //grabs appropriate icon ID from API and concatenates it into the png URL
     var iconID=response.weather[0].icon;
@@ -74,6 +151,7 @@ function citySearchHandler (event) {
     if (searchedCity === ""){
         alert("Please Enter a City")
     } else {
+            forecastRowEl.textContent=''
             weatherListEl.textContent=''
             cityInputEl.value=''
             getWeatherData(searchedCity)
@@ -83,5 +161,4 @@ function citySearchHandler (event) {
 
 // EVENT LISTENERS ---------------------
 // getWeatherData('Houston');
-
 searchButtonEl.addEventListener('click', citySearchHandler)

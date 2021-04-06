@@ -7,7 +7,6 @@ var weatherListEl = document.querySelector('#weatherList')
 var forecastContainerEl=document.querySelector('#forecastContainer')
 var dateEl = document.querySelector('#currentDate')
 var forecastRowEl = document.querySelector('#cards-row')
-console.log(forecastRowEl)
 
 currentTime=moment().format("dddd, MMMM Do YYYY, h:mm a")
 
@@ -36,40 +35,52 @@ async function getForecast (lat, lon){
         var response = await fetch(apiURL);
         var awaitedResponse = await response.json();
         renderForecast(awaitedResponse)
+        console.log(awaitedResponse)
     } catch (error) {
         console.log(error);
     }
 }
 
+//Function that renders 5-day forecast cards. Called by getWeatherData.. 
 function renderForecast(response){
+    //Appends UV data to main 'current weather' ul from onecall API
     todaysUV = response.daily[0].uvi;
     var uvBullet = document.createElement('li')
     uvBullet.classList.add('list-group-item')
     uvBullet.textContent="UV Index: "+ todaysUV;
     weatherListEl.appendChild(uvBullet)
     
+    //Adds '5-day-forecast' header 
     var forecastHeader=document.createElement('span')
     forecastHeader.style.fontWeight='stronger'
     forecastHeader=textContent="5-Day Forecast"
     forecastContainerEl.prepend(forecastHeader);
 
+    //creates and appends 5 cards
     for (i=1; i<6; i++){
+
+        var iconID=response.daily[i].weather[0].icon;
+        var iconURL = `http://openweathermap.org/img/wn/${iconID}@2x.png`
+        var iconRender = document.createElement('img')
+        iconRender.src=iconURL
+
         var temp = response.daily[i].temp.day
         var tempK = Math.round(temp-273.15)
         var wind = response.daily[i].wind_speed
         var humidity = response.daily[i].humidity
         var dateUnix = response.daily[i].dt
         date = moment.unix(dateUnix).format("MMM Do, YYYY")
-        console.log(date)
         
         var column = document.createElement('div')
         var card = document.createElement('div')
         var cardBody = document.createElement('div')
         var ul = document.createElement('ul');
+        var iconSpot = document.createElement('li')
         var forecastDate = document.createElement('li')
         var tempBullet=document.createElement('li');
         var windBullet=document.createElement('li');
         var humidBullet = document.createElement('li');
+
 
         forecastDate.textContent=date;
         tempBullet.textContent="Temp: "+tempK+"° C";
@@ -91,6 +102,8 @@ function renderForecast(response){
         card.appendChild(cardBody)
         cardBody.appendChild(ul)
 
+        iconSpot.appendChild(iconRender)
+        ul.appendChild(iconSpot)
         ul.appendChild(forecastDate)
         ul.appendChild(tempBullet)
         ul.appendChild(windBullet)

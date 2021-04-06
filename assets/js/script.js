@@ -70,18 +70,21 @@ function renderForecast(response){
         var humidity = response.daily[i].humidity
         var dateUnix = response.daily[i].dt
         date = moment.unix(dateUnix).format("MMM Do, YYYY")
+        weekDay=moment.unix(dateUnix).format("dddd")
+    
         
         var column = document.createElement('div')
         var card = document.createElement('div')
         var cardBody = document.createElement('div')
         var ul = document.createElement('ul');
         var iconSpot = document.createElement('li')
+        var weekDaySpot=document.createElement('li')
         var forecastDate = document.createElement('li')
         var tempBullet=document.createElement('li');
         var windBullet=document.createElement('li');
         var humidBullet = document.createElement('li');
 
-
+        weekDaySpot.textContent=weekDay;
         forecastDate.textContent=date;
         tempBullet.textContent="Temp: "+tempK+"° C";
         windBullet.textContent="Wind: "+wind+" m/s";
@@ -92,6 +95,8 @@ function renderForecast(response){
         card.classList='card shadow'
         cardBody.classList='card-body';
         ul.classList='list-group';
+
+        weekDaySpot.classList='list-group-item forecast-item';
         forecastDate.classList='list-group-item forecast-item forecast-date';
         tempBullet.classList='list-group-item forecast-item';
         windBullet.classList='list-group-item forecast-item';
@@ -104,6 +109,7 @@ function renderForecast(response){
 
         iconSpot.appendChild(iconRender)
         ul.appendChild(iconSpot)
+        ul.appendChild(weekDaySpot)
         ul.appendChild(forecastDate)
         ul.appendChild(tempBullet)
         ul.appendChild(windBullet)

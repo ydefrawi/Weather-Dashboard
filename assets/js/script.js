@@ -53,7 +53,18 @@ function renderForecast(response){
     var uvBullet = document.createElement('li')
     uvBullet.classList.add('list-group-item')
     uvBullet.textContent="UV Index: "+ todaysUV;
+    if (todaysUV<2){
+        uvBullet.style.color="green";
+        uvWarning = document.createTextNode(": FAVORABLE")
+    } else if (todaysUV>=8){
+        uvBullet.style.color="red";
+        uvWarning = document.createTextNode(": SEVERE")
+    } else {
+        uvBullet.style.color="orange";
+        uvWarning = document.createTextNode(": MODERATE")
+    }
     weatherListEl.appendChild(uvBullet)
+    uvBullet.appendChild(uvWarning)
     
     //Adds '5-day-forecast' header 
     headerContainerEl.textContent=''

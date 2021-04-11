@@ -70,10 +70,15 @@ footer{
 }
 
 .card-body {
-    background: rgb(55,65,107);
-    background: linear-gradient(68deg, rgba(55,65,107,1) 0%, rgba(65,65,154,1) 100%);
+
     border-radius: 15px;
     color:white;
+    background: rgba( 39, 19, 109, 0.90 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4.0px );
+    -webkit-backdrop-filter: blur( 4.0px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .forecast-date {
@@ -98,7 +103,7 @@ footer{
     backdrop-filter: blur( 9.5px );
     -webkit-backdrop-filter: blur( 9.5px );
     border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+
 }
 
 #searchColumn{

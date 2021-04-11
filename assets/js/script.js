@@ -2,13 +2,17 @@
 var cityInputEl = document.querySelector("#cityInput")
 var cityRenderEl = document.querySelector("#cityRender")
 var searchButtonEl = document.querySelector("#searchButton")
+var searchHeaderEl = document.querySelector("#searchHeader")
 var weatherContainerEl = document.querySelector('#weatherContainer')
 var weatherListEl = document.querySelector('#weatherList')
+var headerContainerEl=document.querySelector('#headerContainer')
 var forecastContainerEl=document.querySelector('#forecastContainer')
 var dateEl = document.querySelector('#currentDate')
-var forecastRowEl = document.querySelector('#cards-row')
+var forecastRowEl = document.querySelector('#cards-row');
+var oldSearchesEl = document.querySelector('#prev-searches')
 
-currentTime=moment().format("dddd, MMMM Do YYYY, h:mm a")
+currentTime=moment().format("dddd, MMMM Do YYYY, h:mm a");
+var buttonArray=JSON.parse(localStorage.getItem('cities'))||[];
 
 //FUNCTIONS--------------------
 
@@ -41,8 +45,9 @@ async function getForecast (lat, lon){
     }
 }
 
-//Function that renders 5-day forecast cards. Called by getWeatherData.. 
+//Function that renders 5-day forecast cards. Called by getWeatherData. 
 function renderForecast(response){
+
     //Appends UV data to main 'current weather' ul from onecall API
     todaysUV = response.daily[0].uvi;
     var uvBullet = document.createElement('li')
@@ -51,10 +56,12 @@ function renderForecast(response){
     weatherListEl.appendChild(uvBullet)
     
     //Adds '5-day-forecast' header 
-    var forecastHeader=document.createElement('span')
-    forecastHeader.style.fontWeight='stronger'
-    forecastHeader=textContent="5-Day Forecast"
-    forecastContainerEl.prepend(forecastHeader);
+    headerContainerEl.textContent=''
+    var forecastHeader=document.createElement('div')
+    forecastHeader.classList='alert alert-info'
+    forecastHeader.setAttribute('id','header5day')
+    forecastHeader.textContent="5-Day Forecast"
+    headerContainerEl.appendChild(forecastHeader);
 
     //creates and appends 5 cards
     for (i=1; i<6; i++){
@@ -108,25 +115,22 @@ function renderForecast(response){
         cardBody.appendChild(ul)
 
         iconSpot.appendChild(iconRender)
-        ul.appendChild(iconSpot)
-        ul.appendChild(weekDaySpot)
-        ul.appendChild(forecastDate)
-        ul.appendChild(tempBullet)
-        ul.appendChild(windBullet)
-        ul.appendChild(humidBullet)
-
-        
+        ul.append(iconSpot, weekDaySpot,forecastDate,tempBullet,windBullet,humidBullet)
+        // ul.appendChild(weekDaySpot)
+        // ul.appendChild(forecastDate)
+        // ul.appendChild(tempBullet)
+        // ul.appendChild(windBullet)
+        // ul.appendChild(humidBullet)
     }
 }
-
-
 
 //Function renderCityWeather - renders CURRENT weather data to the page. Creates 3 list items for Temp, Wind and Humidity
 var renderCityWeather=function(response, searchedCity){
     cityName = response.name
     cityRenderEl.textContent = cityName;
     dateEl.textContent = currentTime;
-    // console.log(response); 
+    searchHeaderEl.style.color="#FFFFFF"
+    console.log(response); 
 
     //grabs appropriate icon ID from API and concatenates it into the png URL
     var iconID=response.weather[0].icon;
@@ -163,13 +167,14 @@ var renderCityWeather=function(response, searchedCity){
 }
 
 //Function that trims and logs inputs to the search box (will need to add to localStorage to save previous searches), to be called when the search button is clicked
-
 function citySearchHandler (event) {
     event.preventDefault();
     var searchedCity = cityInputEl.value.trim();
     if (searchedCity === ""){
         alert("Please Enter a City")
     } else {
+            buttonStorage(searchedCity); 
+            buttonRender(buttonArray)
             forecastRowEl.textContent=''
             weatherListEl.textContent=''
             cityInputEl.value=''
@@ -177,7 +182,43 @@ function citySearchHandler (event) {
     }
 }
 
+function buttonStorage(searchedCity){
+    buttonArray.push(searchedCity);
+    //uses Set to remove duplicates in buttonArray--
+    var noDuplicates=[...new Set(buttonArray)];
+    localStorage.setItem('cities',JSON.stringify(noDuplicates));
+}
+
+function buttonRender(buttonArray) {
+    var searches = JSON.parse(localStorage.getItem('cities'))
+    console.log("in button render " + searches)
+    console.log(typeof searches);
+    oldSearchesEl.textContent=''
+
+    if (searches) {
+        searches.forEach(element => {
+            var oldSearches = document.createElement('button')
+            oldSearches.classList = 'btn btn-info saved-searches'
+            oldSearches.textContent = element;
+            oldSearchesEl.appendChild(oldSearches)
+            oldSearches.addEventListener('click',cityButtonHandler)
+        });
+    } else {
+        return;
+    }
+}
+
+function cityButtonHandler (event) {
+        
+        searchedButton=event.toElement.textContent
+        event.preventDefault();
+        forecastRowEl.textContent=''
+        weatherListEl.textContent=''
+        cityInputEl.value=''
+        getWeatherData(searchedButton)
+}
 
 // EVENT LISTENERS ---------------------
-// getWeatherData('Houston');
+buttonRender(buttonArray)
+
 searchButtonEl.addEventListener('click', citySearchHandler)

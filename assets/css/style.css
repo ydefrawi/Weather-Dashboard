@@ -11,8 +11,15 @@ footer{
     background-size: cover;
 }
 
-#search-button {
-    text-align: right;
+#cityInput{
+    align-self: center;
+
+    width: 250px;
+}
+
+#searchButton {
+    align-self: center;
+    width: 100px;
 }
 
 #currentDate {
@@ -26,6 +33,7 @@ footer{
 
 .title-background {
     background-color:  rgba(56, 255, 245, 0.589);
+    max-width:fit-content;
     
 }
 
@@ -72,3 +80,56 @@ footer{
     font-weight: bolder;
     text-decoration: underline;
 }
+
+.saved-searches{
+    width: 200px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+#searchHeader{
+    align-self: center;
+    font-size: 25px;
+    min-width: 200px;
+    background: rgba( 19, 103, 149, 0.50 );
+    padding: 10px;
+    background: rgba( 19, 103, 149, 0.20 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 9.5px );
+    -webkit-backdrop-filter: blur( 9.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+#searchColumn{
+    display: flex;
+    flex-direction: column;
+    background-image: url('https://images.unsplash.com/photo-1558486012-817176f84c6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=619&q=80');
+    background-position: bottom;
+    background-size: cover;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+#prev-searches{
+    text-align: center;
+    align-self: center;
+    padding-bottom: 40px;
+}
+
+#header5day{
+    font-weight: bolder;
+    text-align:center;
+    font-size: larger;
+}
+
+/* @media screen and (max-width:690px){
+    #searchHeader{
+        font-size: 12px;
+    }
+        
+    } */

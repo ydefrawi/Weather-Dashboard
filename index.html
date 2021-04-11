@@ -22,12 +22,17 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-4" id="searchColumn">
                 <br>
-                <h2> Search For a City</h2>
+                <h2 id="searchHeader"> Search For a City</h2>
                 <input id=cityInput class="form-control" type="text" placeholder="Enter City Name">
                 <button id="searchButton" type="button" class="btn btn-info float-right">Search</button>
+                <pre> 
 
+                </pre>
+                <container id="prev-searches"> 
+
+                </container>
             </div>
             <div class="col-sm-8">
                 <h2 id="cityRender" class="text-center"></h2>
@@ -40,19 +45,8 @@
                     </ul>
                 </div>
                 <div id="forecastContainer" class="container  no-gutters">
-                    <div id = "cards-row" class="row">
-                        <!-- <div class="col-sm">
-                            <div class="card shadow">
-                                <div class="card-body ">
-                                    <h5 class="card-title">Day 2</h5>
-                                    <ul class="list-group">
-                                        <li class="list-group-item forecast-item">Temp: </li>
-                                        <li class="list-group-item forecast-item">Wind: </li>
-                                        <li class="list-group-item forecast-item">Humidity: </li>
-                                      </ul>
-                                </div>
-                            </div>
-                        </div> -->
+                    <div id='headerContainer'></div>
+                    <div id="cards-row" class="row">
                     </div>
                 </div>
             </div>

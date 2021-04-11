@@ -167,7 +167,7 @@ var renderCityWeather=function(response, searchedCity){
 
     var humidBullet = document.createElement('li')
     humidBullet.classList.add('list-group-item')
-    humidBullet.textContent="Humidity: " + humidity;
+    humidBullet.textContent="Humidity: " + humidity + "%";
 
     //Appends bullets and icon to weatherListEl and cityRenderEl, both global.
     weatherListEl.appendChild(tempBullet)

@@ -221,7 +221,7 @@ function buttonRender(buttonArray) {
 
 function cityButtonHandler (event) {
         
-        searchedButton=event.toElement.textContent
+        searchedButton=event.target.textContent
         event.preventDefault();
         forecastRowEl.textContent=''
         weatherListEl.textContent=''

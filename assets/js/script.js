@@ -10,8 +10,11 @@ var forecastContainerEl=document.querySelector('#forecastContainer')
 var dateEl = document.querySelector('#currentDate')
 var forecastRowEl = document.querySelector('#cards-row');
 var oldSearchesEl = document.querySelector('#prev-searches')
+var slider=document.querySelector('#slider')
 
 currentTime=moment().format("dddd, MMMM Do YYYY, h:mm a");
+$('#currentDate').text(currentTime);
+$('#slider').css('overflow-y','visible');
 var buttonArray=JSON.parse(localStorage.getItem('cities'))||[];
 
 //FUNCTIONS--------------------
@@ -29,6 +32,8 @@ async function getWeatherData (city){
         getForecast(lat, lon)
         renderCityWeather(awaitedResponse)
     } catch (error) {
+        $('#cityRender').text('Sorry, No Such City Found!')
+        $('#headerContainer').empty()
         console.log(error);
     }
 }
@@ -41,6 +46,8 @@ async function getForecast (lat, lon){
         renderForecast(awaitedResponse)
         console.log(awaitedResponse)
     } catch (error) {
+        // clearWeatherData()
+        $('#cityRender').text('No Such City Found!')
         console.log(error);
     }
 }
@@ -78,7 +85,7 @@ function renderForecast(response){
     for (i=1; i<6; i++){
 
         var iconID=response.daily[i].weather[0].icon;
-        var iconURL = `http://openweathermap.org/img/wn/${iconID}@2x.png`
+        var iconURL = `https://openweathermap.org/img/wn/${iconID}@2x.png`
         var iconRender = document.createElement('img')
         iconRender.src=iconURL
 
@@ -137,6 +144,7 @@ function renderForecast(response){
 
 //Function renderCityWeather - renders CURRENT weather data to the page. Creates 3 list items for Temp, Wind and Humidity
 var renderCityWeather=function(response, searchedCity){
+    $('#slider').css('overflow-y','hidden');
     cityName = response.name
     cityRenderEl.textContent = cityName;
     dateEl.textContent = currentTime;
@@ -145,7 +153,7 @@ var renderCityWeather=function(response, searchedCity){
 
     //grabs appropriate icon ID from API and concatenates it into the png URL
     var iconID=response.weather[0].icon;
-    var iconURL = `http://openweathermap.org/img/wn/${iconID}@2x.png`
+    var iconURL = `https://openweathermap.org/img/wn/${iconID}@2x.png`
     var iconRender = document.createElement('img')
     iconRender.src=iconURL
     // ---------------------
@@ -186,9 +194,7 @@ function citySearchHandler (event) {
     } else {
             buttonStorage(searchedCity); 
             buttonRender(buttonArray)
-            forecastRowEl.textContent=''
-            weatherListEl.textContent=''
-            cityInputEl.value=''
+            clearWeatherData()
             getWeatherData(searchedCity)
     }
 }
@@ -220,13 +226,37 @@ function buttonRender(buttonArray) {
 }
 
 function cityButtonHandler (event) {
-        
-        searchedButton=event.target.textContent
-        event.preventDefault();
-        forecastRowEl.textContent=''
-        weatherListEl.textContent=''
-        cityInputEl.value=''
-        getWeatherData(searchedButton)
+    event.preventDefault();
+    searchedButton=event.target.textContent
+            if (slider.classList.contains('slideup')){
+                slider.classList.remove('slideup')
+                slider.classList.add('slidedown')
+                getWeatherData(searchedButton)
+            } 
+            else if (slider.classList.contains('slidedown')){
+                slider.classList.remove('slidedown');
+                slider.classList.add('slideup');
+                setTimeout (function () {
+                    clearWeatherData()
+                    getWeatherData(searchedButton)
+                    slider.classList.remove('slideup')
+                    slider.classList.add('slidedown')
+                    
+                },400)
+                
+            } else {
+                clearWeatherData()
+                getWeatherData(searchedButton)
+            }
+    
+}
+
+function clearWeatherData(){
+    $('#cityRender').text('')
+    $('#headerContainer').empty()
+    forecastRowEl.textContent=''
+    weatherListEl.textContent=''
+    cityInputEl.value=''
 }
 
 // EVENT LISTENERS ---------------------
